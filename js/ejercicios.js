@@ -86,14 +86,22 @@ function piramide_b(filas){
 /*7*/
 function ej07(){
     const nombres = prompt("Ingrese nombres separados por comas:");
-    if(nombres== null){
+    let vector_nombres=[];
+    if(nombres== null || nombres.trim()===""){
         alert("No se ingresaron nombres.");
         return;
     }
     const nombres_separados=nombres.split(",");
-    const nombres_con_A= nombres_separados.filter(name => name.toLowerCase().startsWith("a"));
+    for(var i=0; i<nombres_separados.length();i++){
+        if(nombres_separados[i][0]=='a'){
+            vector_nombres=nombres_separados[i];
+        }
+    }
+   
+   
+  
     const mostrar=document.getElementById("resultado");
-    mostrar.innerHTML="";
+    mostrar.innerHTML=nombres_con_A;
 }
 
 
@@ -102,4 +110,6 @@ function ej07(){
 //ej03();
 //ej04();
 //ej05();
-piramide_b(4);
+//piramide_A(5);
+//piramide_b(4); --> falta terminar un cachito
+ej07();
