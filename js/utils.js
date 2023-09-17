@@ -8,3 +8,8 @@ function calcularEdad(fechaNacimiento) {
     }
     return edad;
 }
+
+function ar(array) {
+    let resultado= array.map(elem => elem*2);
+    return resultado;
+}
