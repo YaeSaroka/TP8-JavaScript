@@ -1,3 +1,6 @@
+async function ejecutarEjercicios() {
+
+const resultados = [];
 /*1*/
 function ej01() {
     
@@ -5,7 +8,7 @@ function ej01() {
     const fechaNacimiento = prompt("Ingrese su fecha de nacimiento (YYYY-MM-DD):");
 
     const edad = calcularEdad(fechaNacimiento);
-    document.getElementById('resultado').innerHTML = `<p style="font-size:20px;">Hola ${nombre}, tienes <strong style="font-color:blue">${edad} años!</strong></p>`;
+    resultados.push(`<p style="font-size:20px;">Hola ${nombre}, tienes <strong style="font-color:blue">${edad} años!</strong></p>`);
 }
 /*2*/
 function ej02() {
@@ -23,8 +26,8 @@ function ej02() {
     ]
     const fruta_elegir = prompt("Ingrese la fruta que desea:");
     const busqueda = frutas.find(fruta => fruta.nombre === fruta_elegir);
-    if(busqueda == undefined) document.getElementById('resultado').innerHTML = `<strong> No, no tenemos <u style="color: blue"> ${fruta_elegir} </u> :( </strong>`
-    else document.getElementById('resultado').innerHTML =`<strong> Sí, tenemos <u style="color: blue "> ${fruta_elegir} </u> :D  !!</strong>`
+    if(busqueda == undefined) resultados.push(`<strong> No, no tenemos <u style="color: blue"> ${fruta_elegir} </u> :( </strong>`);
+    else resultados.push(`<strong> Sí, tenemos <u style="color: blue "> ${fruta_elegir} </u> :D  !!</strong>`);
 }
 /*3*/
 function ej03() {
@@ -33,14 +36,14 @@ function ej03() {
     console.log(10 === '10'); 
     console.log(typeof 10.6); 
     console.log(true == 1); 
-    document.getElementById('resultado').innerHTML =`
+    resultados.push(`
     <strong>Punto A: <u style="color: blue "> true </u></strong>, aparece eso en la console porque tienen el <strong>mismo contenido</strong> :D  !!<br>
     <strong>Punto B: <u style="color: blue "> false </u></strong>, porque son de diferente tipo de <strong>variable</strong> :( <br>
     <strong>Punto C: <u style="color: blue "> number </u></strong>, aparece eso en la console porque identifica que es tipo <strong>int !</strong><br>
     <strong>Punto D: <u style="color: blue "> true </u></strong>, true y 1 se consideran como <strong>"verdaderos"<strong> en js  !!<br><br><br>
 
     <strong style="color: blue "><i><u>Entra a la consola y compruebalo<i></u></strong>
-    `
+    `);
 }
 
 /*4*/
@@ -63,7 +66,7 @@ function ej04(){
             const dato = ciudad[atributo];
             cadena_ciudad += `<strong style="margin-left:20px; font-size:20px">${atributo}:</strong> ${dato}<br>`;
         }
-        resultado.innerHTML =`<strong style="color: blue; font-size:30px"><u>Ciudad</strong></u><br><br>` + cadena_ciudad;
+        resultados.push(`<strong style="color: blue; font-size:30px"><u>Ciudad</strong></u><br><br>` + cadena_ciudad);
     } 
 }
 
@@ -71,33 +74,38 @@ function ej04(){
 function ej05(){
     var array_0=[1,2,3,4,5];
     var arrayduplicado= ar(array_0);
-    document.getElementById('resultado').innerHTML = `<strong ><u style="color: blue; font-size:20px">Doble de elementos</u>: [${arrayduplicado}]</strong>`;
+    resultados.push(`<strong ><u style="color: blue; font-size:20px">Doble de elementos</u>: [${arrayduplicado}]</strong>`);
 }
 
 
 /*6a*/
-function piramide_A(filas){
-    let piramide= '';
-    for(let i=0; i<filas;i++){
-        let piso='';
-        for(let y=0; y<i +1;y++){
-            piso=piso+'*';
+function generarPiramides(){
+    function piramide_A(filas) {
+        for (let i = 0; i < filas; i++) {
+            let piso = '';
+            for (let y = 0; y < i + 1; y++) {
+                piso += '*';
+            }
+            console.log(piso);
         }
-        piramide += piso + '<br>'
     }
-    document.getElementById('resultado').innerHTML = `<strong>Piramide A:<br><pre style="margin-left: 50px; font-size:30px;">${piramide}</pre></strong>`;
+    
+    /*6b*/
+    function piramide_B(filas) {
+        for (let i = 0; i < filas; i++) {
+            let espacios = '-'.repeat(filas - i - 1);
+            let asteriscos = '*'.repeat(2 * i + 1);
+            console.log(espacios + asteriscos + espacios);
+        }
+    }
+    console.log('Pirámide A:');
+    piramide_A(5);
+    
+    console.log('Pirámide B:');
+    piramide_B(5); 
 }
 
-/*6b*/
-function piramide_b(filas){
-    let piramide = '';
-    for(let i=0; i<filas;i++){
-        let espacios='-'.repeat(filas-i -1);
-        let asterisco='*'.repeat(2*i+1);
-        piramide += espacios + asterisco + espacios + '\n';
-    }
-    document.getElementById('resultado').innerHTML = `<strong>Piramide A:<br><pre style="margin-left: 50px; font-size:30px;">${piramide}</pre></strong>`;
-}
+
 
 /*7*/
 function ej07(){
@@ -115,9 +123,9 @@ function ej07(){
         }
     }
     if (vector_nombres.length > 0) {
-        document.getElementById('resultado').innerHTML = `<strong>Nombres que comienzan con <u style="color: blue">'A'</u>:</strong> [${vector_nombres.join(", ")}]`;
+        resultados.push(`<strong>Nombres que comienzan con <u style="color: blue">'A'</u>:</strong> [${vector_nombres.join(", ")}]`);
     } else {
-        document.getElementById('resultado').innerHTML = "No se encontraron nombres que comiencen con 'A'.";
+        resultados.push(`No se encontraron nombres que comiencen con 'A'.`);
     }
 }
 
@@ -127,23 +135,20 @@ function ej08(){
     const palabraAcambiar = prompt("Palabra que desee reemplazar: ");
     const reemplazo = prompt("Palabra nueva: ");
     const cadenaModificada = cadenaInicial.replace(palabraAcambiar, reemplazo);
-
-    document.getElementById('resultado').innerHTML = `<strong>Cadena nueva: </strong>[ ${cadenaModificada} ] <br> <p style="font-size: 12px"> <strong> Cadena inicial:</strong> [ ${cadenaInicial} ]<p>`;
+    resultados.push(`<strong>Cadena nueva: </strong>[ ${cadenaModificada} ] <br> <p style="font-size: 12px"> <strong> Cadena inicial:</strong> [ ${cadenaInicial} ]<p>`);
 }
 
 function ej09(){
-    const cadenaInicial = prompt("Cadena texto inicial: ");
+    const cadenaInicial_ = prompt("Cadena texto inicial: ");
     const num = prompt("Numero de caracteres que se mostrarán: ");
-    const cadenaModificada = cadenaInicial.slice(0, num);
-
-    document.getElementById('resultado').innerHTML =`<strong>Cadena cortada: </strong>[ ${cadenaModificada} ] <br> <p style="font-size: 12px"> <strong> Cadena inicial:</strong> [ ${cadenaInicial} ]<p>`
+    const cadenaModificada_ = cadenaInicial_.slice(0, num);
+    resultados.push(`<strong>Cadena cortada: </strong>[ ${cadenaModificada_} ] <br> <p style="font-size: 12px"> <strong> Cadena inicial:</strong> [ ${cadenaInicial_} ]<p>`);
 }
 function ej10(){
-    const cadenaInicial = prompt("Ingrese una lista de elementos separados por coma! :D");
-    const elementos_separados = cadenaInicial.split(",");
+    const cadenaInicial_1 = prompt("Ingrese una lista de elementos separados por coma! :D");
+    const elementos_separados = cadenaInicial_1.split(",");
     const unidos = elementos_separados.join(' - ');
-
-    document.getElementById('resultado').innerHTML =`<strong> Elementos separados :</strong> [ ${unidos} ]`
+    resultados.push(`<strong> Elementos separados :</strong> [ ${unidos} ]`);
 }
 
 function ej11(){
@@ -155,11 +160,13 @@ function ej11(){
         const num = parseFloat(valor);
         Recaudacion_Total += num;
     }
-
-    document.getElementById('resultado').innerHTML =`<strong> Recaudación total :</strong> [ $${Recaudacion_Total} ]`
+    resultados.push(`<strong> Recaudación total :</strong> [ $${Recaudacion_Total} ]`);
+}
+await Promise.all([ej01(), ej02(), ej03(),ej04(),ej05(),generarPiramides(),ej07(),ej08(),ej09(),ej10(),ej11()]);
+    document.getElementById('resultado').innerHTML = resultados.join('<br><br><br> <hr>');
 }
 
-
+ejecutarEjercicios();
 // LLAMADO DE FUNCIONES !!
 //-----------------------------------------------
     //ej01();
